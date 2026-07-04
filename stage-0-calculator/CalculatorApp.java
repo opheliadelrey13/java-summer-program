@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CalculatorApp {
@@ -7,18 +8,18 @@ public class CalculatorApp {
 
         while(choice != 5){
             menu();
-            choice = input.nextInt();
+            choice = readInt(input,"Your choice: ");
 
 
             if (choice >= 1 && choice <= 4){
-                System.out.print("Enter the first number: ");
-                double firstNum = input.nextDouble();
+                double firstNum = readDouble(input,"Enter the first number: ");
+                double secondNum =readDouble(input,"Enter the second number: ");
 
-                System.out.print("Enter the second number: ");
-                double secondNum = input.nextDouble();
+                Double output = calculate(choice,firstNum,secondNum);
 
-                double output = calculate(choice,firstNum,secondNum);
-                System.out.println("result: " + output);
+                if (output != null){
+                    System.out.println("result: " + output);
+                }
             } else if (choice == 5) {
                 System.out.println("Exiting from the program...");
             }else{
@@ -27,9 +28,35 @@ public class CalculatorApp {
 
             System.out.println();
         }
+        input.close();
     }
 
-    public static double calculate(int choice, double firstNum, double secondNum){
+    private static int readInt(Scanner input, String message) {
+        while (true){
+            try{
+                System.out.println(message);
+                return input.nextInt();
+            }catch (InputMismatchException e){
+                System.out.println("Invalid choice.Please enter a number between 1-5.");
+                input.nextLine();
+            }
+        }
+    }
+
+    private static double readDouble(Scanner input, String message) {
+        while (true){
+            try{
+                System.out.println(message);
+                return input.nextDouble();
+            }catch (InputMismatchException e){
+                System.out.println("Invalid choice.Please enter a number.");
+                input.nextLine();
+            }
+        }
+
+    }
+
+    public static Double calculate(int choice, double firstNum, double secondNum){
         switch (choice){
             case 1:
                 return add(firstNum, secondNum);
@@ -44,14 +71,14 @@ public class CalculatorApp {
                 return divide(firstNum,secondNum);
 
             default:
-                return 0;
+                return null;
         }
     }
 
-    private static double divide(double firstNum, double secondNum){
+    private static Double divide(double firstNum, double secondNum){
         if (secondNum == 0){
             System.out.println("cannot divide by zero");
-            return 0;
+            return null;
         }
         return firstNum / secondNum;
     }
