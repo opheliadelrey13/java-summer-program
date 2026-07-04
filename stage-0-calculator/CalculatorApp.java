@@ -103,7 +103,7 @@ public class CalculatorApp {
         System.out.println("4-Division");
         System.out.println("5-Exit");
         System.out.println();
-        System.out.print("Your choice: ");
+
     }
 
 
