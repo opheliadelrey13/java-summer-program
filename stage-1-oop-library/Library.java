@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class Library {
     public LibraryItem findById(int id){
         for (LibraryItem item : items){
             if (item.getId() == id){
-                item.printInfo();
+                return item;
             }
         }
         return null;
@@ -52,6 +51,5 @@ public class Library {
             item.returnBorrowed();
         }
 
-        }
     }
 }
